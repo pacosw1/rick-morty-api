@@ -2,13 +2,13 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type Query {
-    # characters(page: Int): Characters!
+    characters(page: Int): Characters!
     character(id: ID!): Character
 
-    # episodes(page: Int): Episodes!
+    episodes(page: Int): Episodes!
     episode(id: ID!): Episode
 
-    # locations(page: Int): Locations!
+    locations(page: Int): Locations!
     location(id: ID!): Location
   }
 

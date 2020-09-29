@@ -3,8 +3,8 @@ var mongoose = require("mongoose");
 //function to connect to mongoDB
 exports.ConnectDB = async (uri, options) => {
   try {
-    let response = await mongoose.connect(uri, options);
-    console.log("Connected to MongoDB" + response);
+    await mongoose.connect(uri, options);
+    console.log("Connected to MongoDB");
     return 1;
   } catch (err) {
     console.log(`Connection to DB failed with err ${err.message}`);

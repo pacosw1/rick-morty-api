@@ -19,6 +19,11 @@ const getLocation = async (id) => {
     //look for character with given id
     let location = await Location.findById(id);
 
+    if (location === null) {
+      console.log("item not found");
+      return null;
+    }
+
     //join documents
     location.populate("residents");
 
@@ -36,6 +41,11 @@ const getEpisode = async (id) => {
   try {
     //look for character with given id
     let episode = await Episode.findById(id);
+
+    if (episode === null) {
+      console.log("item not found");
+      return null;
+    }
 
     //join documents
     character.populate("character");
@@ -55,6 +65,12 @@ const getCharacter = async (id) => {
     //look for character with given id
     let character = await Character.findById(id);
 
+    //item was not found so return null
+    if (character === null) {
+      console.log("item not found");
+      return null;
+    }
+
     //join documents
     character.populate("origin");
     character.populate("location");
@@ -68,4 +84,4 @@ const getCharacter = async (id) => {
   }
 };
 
-module.resolvers = resolvers;
+exports.resolvers = resolvers;
