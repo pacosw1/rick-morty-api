@@ -6,11 +6,11 @@ var requiredString = { type: String, required: true };
 var required = true;
 
 var schema = new mongoose.Schema({
-  _id: { required, type: ObjectId },
+  _id: requiredString,
   name: requiredString,
   air_date: requiredString,
   episode: requiredString,
-  characters: [{ id: { required, type: ObjectId, ref: "Character" } }],
+  characters: [{ type: ObjectId, ref: "Character", required }],
   created: { ...requiredString, default: +Date.toString() },
 });
 

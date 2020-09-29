@@ -54,7 +54,7 @@ const typeDefs = gql`
   }
 
   type Character {
-    _id: String
+    _id: ID
     name: String
     status: String
     species: String

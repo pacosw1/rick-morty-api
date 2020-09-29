@@ -5,25 +5,25 @@ var { String, ObjectId } = mongoose.Schema.Types;
 var requiredString = { type: String, required: true };
 
 var schema = new mongoose.Schema({
-  _id: { required: true, type: ObjectId },
+  _id: requiredString,
   name: requiredString,
   status: requiredString,
   species: requiredString,
-  type: requiredString,
+  type: { type: String, default: "" },
   gender: requiredString,
   origin: {
-    type: String,
-    required: true,
+    type: ObjectId,
+    default: "Unknown",
     ref: "Location",
   },
   location: {
-    type: String,
-    required: true,
+    type: ObjectId,
+    default: "Unknown",
     ref: "Location",
   },
   image: requiredString,
   episode: [{ ref: "Episode", required: true, type: ObjectId }],
-  created: { requiredString, default: +Date.toString() },
+  created: requiredString,
 });
 
 var Character = mongoose.model("Character", schema);

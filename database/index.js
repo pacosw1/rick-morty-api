@@ -1,16 +1,15 @@
 var mongoose = require("mongoose");
 
 //function to connect to mongoDB
-exports.ConnectDB = async (uri, options) => {
-  try {
-    await mongoose.connect(uri, options);
-    console.log("Connected to MongoDB");
-    return 1;
-  } catch (err) {
-    console.log(`Connection to DB failed with err ${err.message}`);
-    return 0;
-  }
-};
+mongoose.connect(
+  process.env.URI,
+  {
+    dbName: "rickandmorty-pacosw1",
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => console.log("connected to " + "MongoDB database")
+);
 
 module.exports.Location = require("./models/location");
 module.exports.Episode = require("./models/episode");

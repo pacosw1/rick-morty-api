@@ -6,12 +6,12 @@ var requiredString = { type: String, required: true };
 var required = true;
 
 var schema = new mongoose.Schema({
-  _id: { required, type: ObjectId },
+  _id: requiredString,
   name: requiredString,
   type: requiredString,
   dimension: requiredString,
   residents: [{ ref: "Character", type: ObjectId, required }],
-  created: { ...requiredString, default: +Date.toString() },
+  created: { ...requiredString },
 });
 
 var Location = mongoose.model("Location", schema);

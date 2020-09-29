@@ -1,6 +1,7 @@
-const { models, Mongoose, Types } = require("mongoose");
+var mongoose = require("mongoose");
 
 const { Character, Location, Episode } = require("./index");
+const { create } = require("./models/episode");
 
 const resolvers = {
   Query: {
@@ -8,9 +9,9 @@ const resolvers = {
     character: async (_, { id }) => {
       return getCharacter(id);
     },
-    // episodes: (page) => {},
-    episode: async (_, { id }) => getEpisode(id),
-    // locations: (page) => {},
+    // // episodes: (page) => {},
+    // episode: async (_, { id }) => getEpisode(id),
+    // // locations: (page) => {},
     location: async (_, { id }) => {
       return getLocation(id);
     },
@@ -22,20 +23,21 @@ const getLocation = async (id) => {
   try {
     //look for character with given id
 
-    let location = await Location.findOne({ _id: id });
+    console.log(id);
+    let total = await Location.findById(id).populate("residents");
 
-    console.log(location);
+    console.log(total);
 
-    if (location === null) {
-      console.log("item not found");
-      return null;
-    }
+    // if (location === null) {
+    //   console.log("item not found");
+    //   return null;
+    // }
 
-    //join documents
-    // location.populate("residents");
+    // //join documents
+    // // location.populate("residents");
 
-    //return character
-    return location;
+    // //return character
+    // return location;
   } catch (err) {
     console.log(err);
     //return null as err occured
@@ -67,22 +69,16 @@ const getEpisode = async (id) => {
     return null;
   }
 };
-
 //get character resolver
 const getCharacter = async (id) => {
-  console.log(id);
   try {
     //look for character with given id
-    let character = await Character.findById({ _id: id })
-      .populate("origin")
-      .populate("location");
-    console.log(character);
+    let character = await Character.findById(id)
+      .populate("location")
+      .populate("episode")
+      .populate("origin");
 
-    //item was not found so return null
-    if (character === null) {
-      console.log("item not found");
-      return null;
-    }
+    console.log(character);
 
     //return character
     return character;
