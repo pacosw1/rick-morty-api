@@ -13,6 +13,12 @@ const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
 server.applyMiddleware({ app });
 
+// let rawdata = fs.readFileSync("./database/seeding/seeds/locations.json");
+
+// const Character = require("./database/models/location.js");
+// importData(rawdata, Character);
+
+//connect to mongoDB
 mongoose.connect(
   process.env.URI,
   {

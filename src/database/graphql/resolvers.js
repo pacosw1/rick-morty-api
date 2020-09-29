@@ -74,16 +74,16 @@ const getEpisodes = async (page) => {
   try {
     let count = await Episode.countDocuments();
 
-    //error handling
-    if (page > pages || page < 1)
-      return new UserInputError("Invalid page number");
-
     //get pagination info
     let { prev, next, startIndex, pages } = ComputePagination(
       page,
       count,
       limitPerPage
     );
+
+    //error handling
+    if (page > pages || page < 1)
+      return new UserInputError("Invalid page number");
 
     //get results starting at selected page and limited to 20 per page
     let results = await Episode.find().skip(startIndex).limit(limitPerPage);

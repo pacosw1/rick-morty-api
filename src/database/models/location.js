@@ -10,7 +10,7 @@ var schema = new mongoose.Schema({
   name: requiredString,
   type: requiredString,
   dimension: requiredString,
-  residents: [{ ref: "Character", type: ObjectId, required }],
+  residents: [{ ref: "Character", type: ObjectId }],
   created: { ...requiredString },
 });
 
