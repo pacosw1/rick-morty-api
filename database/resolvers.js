@@ -1,15 +1,19 @@
-const { models } = require("mongoose");
+const { models, Mongoose, Types } = require("mongoose");
 
 const { Character, Location, Episode } = require("./index");
 
 const resolvers = {
   Query: {
     // characters: (page) => {},
-    character: async (id) => getCharacter(id),
+    character: async (_, { id }) => {
+      return getCharacter(id);
+    },
     // episodes: (page) => {},
-    episode: (id) => getEpisode(id),
+    episode: async (_, { id }) => getEpisode(id),
     // locations: (page) => {},
-    location: (id) => getLocation(id),
+    location: async (_, { id }) => {
+      return getLocation(id);
+    },
   },
 };
 
@@ -17,7 +21,10 @@ const resolvers = {
 const getLocation = async (id) => {
   try {
     //look for character with given id
-    let location = await Location.findById(id);
+
+    let location = await Location.findOne({ _id: id });
+
+    console.log(location);
 
     if (location === null) {
       console.log("item not found");
@@ -25,10 +32,10 @@ const getLocation = async (id) => {
     }
 
     //join documents
-    location.populate("residents");
+    // location.populate("residents");
 
     //return character
-    return episode;
+    return location;
   } catch (err) {
     console.log(err);
     //return null as err occured
@@ -40,7 +47,10 @@ const getLocation = async (id) => {
 const getEpisode = async (id) => {
   try {
     //look for character with given id
-    let episode = await Episode.findById(id);
+    let episode = await Episode.findById("5d299b853d1d85c017cc3e28").populate(
+      "characters"
+    );
+    console.log(episode);
 
     if (episode === null) {
       console.log("item not found");
@@ -48,7 +58,6 @@ const getEpisode = async (id) => {
     }
 
     //join documents
-    character.populate("character");
 
     //return character
     return episode;
@@ -61,19 +70,19 @@ const getEpisode = async (id) => {
 
 //get character resolver
 const getCharacter = async (id) => {
+  console.log(id);
   try {
     //look for character with given id
-    let character = await Character.findById(id);
+    let character = await Character.findById({ _id: id })
+      .populate("origin")
+      .populate("location");
+    console.log(character);
 
     //item was not found so return null
     if (character === null) {
       console.log("item not found");
       return null;
     }
-
-    //join documents
-    character.populate("origin");
-    character.populate("location");
 
     //return character
     return character;

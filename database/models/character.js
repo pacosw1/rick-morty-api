@@ -5,19 +5,19 @@ var { String, ObjectId } = mongoose.Schema.Types;
 var requiredString = { type: String, required: true };
 
 var schema = new mongoose.Schema({
-  _id: requiredString,
+  _id: { required: true, type: ObjectId },
   name: requiredString,
   status: requiredString,
   species: requiredString,
   type: requiredString,
   gender: requiredString,
   origin: {
-    type: ObjectId,
+    type: String,
     required: true,
     ref: "Location",
   },
   location: {
-    type: ObjectId,
+    type: String,
     required: true,
     ref: "Location",
   },

@@ -4,10 +4,8 @@ const typeDefs = gql`
   type Query {
     characters(page: Int): Characters!
     character(id: ID!): Character
-
     episodes(page: Int): Episodes!
     episode(id: ID!): Episode
-
     locations(page: Int): Locations!
     location(id: ID!): Location
   }

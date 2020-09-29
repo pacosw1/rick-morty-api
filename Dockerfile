@@ -1,9 +1,9 @@
-FROM mongo:lastest
+
 
 
 
 RUN mkdir /web-app
-
+RUN mongoimport -d rickandmorty-pacosw1 -c characters --file xxxx.json --jsonArray
 
 ADD . /web-app
 

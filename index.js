@@ -13,6 +13,7 @@ const { ConnectDB } = require("./database/index.js");
 //connect to mongoDB docker instance
 let connected = ConnectDB(url, {
   useNewUrlParser: true,
+
   useUnifiedTopology: true,
 });
 
